@@ -63,6 +63,7 @@ public:
 				}
 				mst.push_back(connections[i]);
 			}
+			// when group[connections[i].src]!=group[connections[i].dst], do not add it to mst list
 
 		}
 		return mst;
