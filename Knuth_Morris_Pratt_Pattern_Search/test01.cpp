@@ -1,13 +1,9 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 
-void kmp_search(std::string s, std::string p){
-	
-}
-
-
-void lps(std::string s, std::string p){
+std::vector<int> get_lps(std::string s, std::string p){
 	int len = 0;
 	std::vector<int> lps(p.length());
 	int i =1;
@@ -25,7 +21,33 @@ void lps(std::string s, std::string p){
 			}
 		}
 	}
+	return lps;
 }
+
+void kmp_search(std::string s, std::string p){
+	std::vector<int> lps;
+	lps = get_lps(s, p);
+	int i = 0;
+	int j = 0;
+	while(i < s.length()){
+		if(p.at(j)==s.at(i)){
+			j++;
+			i++;
+		}
+		if(j==p.length()){
+			std::cout << "Found pattern at index " << i-j << "\n";
+			j = lps[j-1];
+		}
+		else if(i < s.length() && p[j]!=s[i]){
+			if(j!=0){
+				j = lps[j-1];
+			}else{
+				i = i + 1;
+			}
+		}
+	}
+}
+
 
 int main(int argc, char *argv[]){
 	std::string s, p;
