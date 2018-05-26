@@ -12,6 +12,7 @@
 # Ignore files with extension `.class` & `.sm`
 *.class
 *.sm
+*.swp
 
 # Ignore cmake generated files
 CMakeCache.txt
