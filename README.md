@@ -1,6 +1,6 @@
-# Algorithm in C++
+# Algorithms in C++
 
-This repository contains common algorithms written in C++14.
+This repository contains common algorithms written in C++14, this can be a good template for reference or build your own program.
 
 ## Getting Started
 
@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-To run the programs, you need to have g++ and cmake install in your local machine, you can use the following instructions to compile the program.
+To compile the programs, you should have gcc and cmake install in your local machine, the gcc version I use is 4.9. you can use the following instructions to compile the program.
 
 ```
 cmake .
