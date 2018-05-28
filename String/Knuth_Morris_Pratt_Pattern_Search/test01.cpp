@@ -43,7 +43,6 @@ std::vector<int> kmp(const std::string &str, const std::string &pat){
 			++i;
 			++j;
 		}
-
 		if(j==m){
 			match.push_back(i-j);
 			j = lps[j-1];

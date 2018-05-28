@@ -11,15 +11,14 @@ std::ostream& operator<<(std::ostream& os, std::vector<T> v){
 
 int partition(std::vector<int> &v, int low, int high){
 	int pivot = v[high];
-	int i = low -1;
+	int i = low;
 	for(int j = low; j < high; ++j){
 		if(v[j] <= pivot){
-			++i;
-			std::swap(v[i], v[j]);
+			std::swap(v[i++], v[j]);
 		}
 	}
-	std::swap(v[i+1], v[high]);
-	return i+1;
+	std::swap(v[i], v[high]);
+	return i;
 }
 
 void quick_sort(std::vector<int> &v, int low, int high){
