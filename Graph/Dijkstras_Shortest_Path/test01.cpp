@@ -1,93 +1,94 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
+#include <map>
 
-struct Edge{
-	int src;
-	int dst;
-	int weight;
+template <typename T> class Edge;
+template <typename T> class Graph;
+
+
+template <typename T>
+class Edge{
+	Edge(T s, T d, int w):src(s), dst(d), wgh(w) {}
+
+	friend class Graph<T>;
+private:
+	T src;
+	T dst;
+	int wgh;
 };
 
-
-
+template <typename T>
 class Graph{
 public:
-	Graph(int _n)
-		:n(_n)
-	{}
+	Graph(int n): num_nodes(n) {}
 
-	void add(int src, int dst, int weight){
-		Edge e;
-		e.src = src;
-		e.dst = dst;
-		e.weight = weight;
+	void add(T s, T d, int w){
+		Edge<T> e(s, d, w);
 		connections.push_back(e);
 	}
 
 
-	std::vector<int> dijkstra(int start){
-		std::vector<int> dist(n, INT_MAX);
-		setds.insert(setds.begin(), std::make_pair(start, 0));
+	void dijkstra(T start){
+		std::map<T, int> dist; // distance from start to others
+		std::vector<std::pair<T, int>> setds;
+		setds.push_back(std::make_pair(start, 0));
 		dist[start] = 0;
 		while(!setds.empty()){
-			std::sort(setds.begin(), setds.end(), [](auto &a, auto &b){
-				return a.second < b.second;
+			// start searching from the smallest
+			std::sort(setds.begin(), setds.end(), [&](auto a, auto b){
+				return a.second < b.second;		
 			});
-
-			std::pair<int, int> tmp = *(setds.begin());
+			std::pair<T, int> temp = setds.front();
 			setds.erase(setds.begin());
-			std::cout <<"erase("<< tmp.first << " "<< tmp.second << ")\n";
 
-			int u = tmp.first;
+			int u = temp.first;
 			for(int i=0; i < connections.size(); ++i){
-				if(connections[i].src==u){
-					int v = connections[i].dst;
-					int w = connections[i].weight;
+				if(connections[i].src == u){
+					T v = connections[i].dst;
+					int w = connections[i].wgh;
+					if(!dist.count(v))
+						dist[v] = INT_MAX;
 					if(dist[v] > dist[u] + w){
 						dist[v] = dist[u] + w;
-						setds.insert(setds.begin(), std::make_pair(v, dist[v] ));
-						std::cout <<"insert("<< v << " "<< dist[v] << ")\n";
+						setds.push_back(std::make_pair(v, dist[v]));
 					}
-				}else if(connections[i].dst==u){
-					int v = connections[i].src;
-					int w = connections[i].weight;
+				}else if(connections[i].dst == u){
+					T v = connections[i].src;
+					int w = connections[i].wgh;
+					if(!dist.count(v))
+						dist[v] = INT_MAX;
 					if(dist[v] > dist[u] + w){
 						dist[v] = dist[u] + w;
-						setds.insert(setds.begin(), std::make_pair(v, dist[v]));
-						std::cout <<"insert("<< v << " "<< dist[v] << ")\n";
-
+						setds.push_back(std::make_pair(v, dist[v]));
 					}
 				}
 
 			}
 		}
-		return dist;
+		for(auto it = dist.begin(); it != dist.end(); ++it){
+			std::cout <<"Node: " << it->first << " Distance: " << it->second << "\n";
+		}
 	}
-
-
 	
 private:
-	std::vector<Edge> connections;
-	std::vector<std::pair<int, int>> setds;
-	int n;
+	std::vector<Edge<T>> connections;
+	int num_nodes;
 };
 
 
+
 int main(int argc, char *argv[]){
-	int n, nodes;
-	std::cin >> n >> nodes;
-	Graph g(nodes);
-	for(int i = 0; i < n; ++i){
-		int src, dst, weight;
-		std::cin >> weight >> src >> dst;
-		g.add(src, dst, weight);
-	}
-	std::vector<int> distances= g.dijkstra(0);
-	std::cout << "Shotest path is:\n";
-	for(int i = 0; i < distances.size(); ++i){
-		std::cout <<"Node: " << i << " Distance: " << distances[i] << "\n";
+	int n, m;
+	std::cin >> n >> m;
+	Graph<int> g(m);
+	int s, d, w;
+	for(int i=0; i < n; ++i){
+		std::cin >> s >> d >> w;
+		g.add(s, d, w);
 	}
 
+	g.dijkstra(0);
+	
 	return 0;
 }
 
