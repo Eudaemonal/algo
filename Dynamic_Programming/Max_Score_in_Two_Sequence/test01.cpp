@@ -11,15 +11,15 @@ std::ostream& operator<<(std::ostream& os, const std::vector<T> &v){
 	return os;
 }
 
-int f(std::vector<std::vector<int>> v){
+int max_score(int cost, std::vector<std::vector<int>> v){
 	int n = v.size();
 	std::vector<std::vector<int>> dp(n, std::vector<int>(2));
 	
-
 	for(int i = 0; i < n; ++i){
-		
+        dp[0][i] = std::max(dp[0][i-1] + v[0][i-1], dp[1][i-1] + v[0][i-1] - cost);
+        dp[1][i] = std::max(dp[1][i-1] + v[1][i-1], dp[0][i-1] + v[1][i-1] - cost);
 	}
-	return 0;
+	return std::max(dp[0][n], dp[1][n]);
 }
 
 int main(int argc, char *argv[]){
@@ -34,6 +34,6 @@ int main(int argc, char *argv[]){
 		std::cin >> v[0][i] >> v[1][i];
 	}
 	
-	std::cout << f(v);
+	std::cout << max_score(cost, v) << "\n";
 	return 0;
 }

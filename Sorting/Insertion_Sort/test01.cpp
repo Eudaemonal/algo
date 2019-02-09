@@ -12,15 +12,19 @@ std::ostream& operator<<(std::ostream& os, const std::vector<T> &v){
 
 void insertion_sort(std::vector<int> &v){
 	int n = v.size();
-	int key, j;
+	int temp, j;
 	for(int i = 1; i < n; ++i){
-		key = v[i];
+        // store the value
+		temp = v[i];
 		j = i-1;
-		while(j>=0 && v[j] > key){
+
+        // shifting numbers larger than temp to right
+		while(j>=0 && v[j] > temp){
 			v[j+1] = v[j];
 			j = j-1;
 		}
-		v[j+1] = key;
+        // insert temp to the correct place
+		v[j+1] = temp;
 	}
 }
 

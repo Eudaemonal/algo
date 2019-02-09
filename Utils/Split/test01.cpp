@@ -14,7 +14,6 @@ std::ostream& operator<<(std::ostream& os, std::vector<T> v){
     return os;
 }
 
-
 std::vector<std::string> split(const std::string& str, const std::string& delim){
     std::vector<std::string> tokens;
     size_t prev = 0, pos = 0;

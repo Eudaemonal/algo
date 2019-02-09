@@ -24,7 +24,11 @@ int partition(std::vector<int> &v, int low, int high){
 void quick_sort(std::vector<int> &v, int low, int high){
 	if(low >= high)
 		return;
+
+    // partition the array into two sections
 	int p = partition(v, low, high);
+
+    // no need to include pivot
 	quick_sort(v, low, p-1);
 	quick_sort(v, p+1, high);
 }

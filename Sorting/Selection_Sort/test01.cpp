@@ -10,6 +10,7 @@ std::ostream& operator<<(std::ostream& os, const std::vector<T> &v){
 	return os;
 }
 
+// find the minimum value each time and put it in place
 void selection_sort(std::vector<int> &v){
 	int n = v.size();
 	for(int i = 0; i < n; ++i){
