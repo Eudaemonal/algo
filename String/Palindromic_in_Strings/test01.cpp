@@ -1,6 +1,25 @@
 #include <iostream>
 #include <string>
 
+/*
+A palindromic is a string that can be read the same way in either direction.
+It can be checked by: 
+
+bool isPalindromic(std::string word){
+    int i1 = 0;
+    int i2 = word.length() - 1;
+    while (i2 > i1) {
+        if (word[i1] != word[i2]) {
+            return false;
+        }
+        ++i1;
+        --i2;
+    }
+    return true;
+}
+
+*/
+
 int count_palindromic(std::string s){
     int n = s.length();
     int count = 0;

@@ -16,8 +16,6 @@ prices of all pieces of size smaller than n. Determine the maximum
 value obtainable by cutting up the rod and selling the pieces.
 */
 
-
-
 int cut(std::vector<int> v){
 	int n = v.size();
 	std::vector<int> dp(n+1);
